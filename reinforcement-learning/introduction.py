@@ -8,7 +8,7 @@
 # declaration at the top                                              #
 #######################################################################
 ##https://www.cnblogs.com/pinard/p/9385570.html ##
-## ǿ��ѧϰ��һ��ģ�ͻ��� ##
+## 强化学习（一）模型基础 ##
 
 import numpy as np
 import pickle
@@ -17,18 +17,21 @@ BOARD_ROWS = 3
 BOARD_COLS = 3
 BOARD_SIZE = BOARD_ROWS * BOARD_COLS
 
+# 状态定义
 class State:
     def __init__(self):
         # the board is represented by an n * n array,
         # 1 represents a chessman of the player who moves first,
         # -1 represents a chessman of another player
         # 0 represents an empty position
+        # 初始化
         self.data = np.zeros((BOARD_ROWS, BOARD_COLS))
         self.winner = None
         self.hash_val = None
         self.end = None
 
     # compute the hash value for one state, it's unique
+    # 计算状态的hash值，具体规则不详
     def hash(self):
         if self.hash_val is None:
             self.hash_val = 0
@@ -39,6 +42,7 @@ class State:
         return int(self.hash_val)
 
     # check whether a player has won the game, or it's a tie
+    # 判断是否结束，3，-3，判断胜负，绝对值9判断平局
     def is_end(self):
         if self.end is not None:
             return self.end
@@ -81,6 +85,7 @@ class State:
 
     # @symbol: 1 or -1
     # put chessman symbol in position (i, j)
+    # 棋手下棋后更新状态
     def next_state(self, i, j, symbol):
         new_state = State()
         new_state.data = np.copy(self.data)
@@ -88,6 +93,7 @@ class State:
         return new_state
 
     # print the board
+    # 更新棋盘
     def print(self):
         for i in range(0, BOARD_ROWS):
             print('-------------')
@@ -103,6 +109,7 @@ class State:
             print(out)
         print('-------------')
 
+# 
 def get_all_states_impl(current_state, current_symbol, all_states):
     for i in range(0, BOARD_ROWS):
         for j in range(0, BOARD_COLS):
