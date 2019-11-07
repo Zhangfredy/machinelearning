@@ -109,7 +109,7 @@ class State:
             print(out)
         print('-------------')
 
-# 
+# 获取所有的可能结果
 def get_all_states_impl(current_state, current_symbol, all_states):
     for i in range(0, BOARD_ROWS):
         for j in range(0, BOARD_COLS):
@@ -157,6 +157,7 @@ class Judger:
             yield self.p2
 
     # @print: if True, print each board during the game
+    # 
     def play(self, print=False):
         alternator = self.alternate()
         self.reset()
